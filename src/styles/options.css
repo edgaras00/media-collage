@@ -1,0 +1,27 @@
+.options-container {
+    margin-top: 2%;
+    margin-right: 2%;
+    height: 94%;
+    width: 20%;
+    font-size: 15px;
+    margin-left: 1.5%;
+    overflow: scroll;
+}
+
+.options {
+    margin-left: 2%;
+}
+
+.menu-button {
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-button:focus {
+    outline: none;
+}
+
+.menu-button:hover {
+    opacity: 80%;
+}

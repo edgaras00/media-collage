@@ -53,22 +53,25 @@ const Container = () => {
   const [width, setWidth] = useState(null);
   const widthRef = useRef(null);
 
+  console.log(boxes);
+
   const moveBox = useCallback(
     (dragIndex, hoverIndex) => {
       /* 
         Uses useCallback hook so that the function is not recreated every
-        time the component renders Only when the 
-        'boxes' and 'sort' values change 
+        time the component renders 
+        Only when the 'boxes' and 'sort' values change 
       */
 
       // Selected box that is being dragged
       const dragBox = boxes[dragIndex];
       // Position / index of the box that is being hovered on
-      const x = boxes[hoverIndex];
+      const hoveredBox = boxes[hoverIndex];
       if (sort) {
         // Push the neighboring boxes to the side if "sort" is selected
-        setBoxes(
-          update(boxes, {
+        setBoxes((prev) =>
+          update(prev, {
+            // Remove from dragIndex and add to hoverIndex without removing box
             $splice: [
               [dragIndex, 1],
               [hoverIndex, 0, dragBox],
@@ -77,10 +80,11 @@ const Container = () => {
         );
       } else {
         // Swap the drag box with drop box if "swap" is selected
-        setBoxes(
-          update(boxes, {
+
+        setBoxes((prev) =>
+          update(prev, {
             $splice: [
-              [dragIndex, 1, x],
+              [dragIndex, 1, hoveredBox],
               [hoverIndex, 1, dragBox],
             ],
           })

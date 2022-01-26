@@ -51,10 +51,15 @@ const CollageContextProvider = (props) => {
   const [selectedId, setSelectedId] = useState("");
   // State that holds the selected artwork image information
   // Artwork image URL and the media title
-  const [selectedImage, setSelectedImage] = useState({});
   // Display search modal (true/false)
   const [displaySearch, setDisplaySearch] = useState(false);
   const [searchByAlbum, setSearchByAlbum] = useState(true);
+
+  // TEST
+  // Array of box objects
+  // The length of the array depends on the dimensions of the collage
+  // lenght of array = rows * columns
+  // const [boxes, setBoxes] = useState(createBoxes(numRows, numCols));
 
   // Options functions
   const changeRows = (value) => {
@@ -153,17 +158,6 @@ const CollageContextProvider = (props) => {
 
   const closeSearch = () => {
     // Function that closes the search modal
-    setDisplaySearch(false);
-  };
-
-  const selectImage = (image, artist, name) => {
-    // Function that selects the artwork image from the search modal
-    // results and creates an image object with image data
-    let mediaName = `${artist} - ${name}`;
-    if (searchMode !== "music") {
-      mediaName = name;
-    }
-    setSelectedImage({ image: image, data: mediaName });
     setDisplaySearch(false);
   };
 
@@ -444,8 +438,6 @@ const CollageContextProvider = (props) => {
   return (
     <CollageContext.Provider
       value={{
-        selectImage,
-        selectedImage,
         getId,
         selectedId,
         displaySearch,

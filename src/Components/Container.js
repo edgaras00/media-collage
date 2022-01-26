@@ -10,16 +10,17 @@ import Box from "./Box";
 import { CollageContext } from "../Context/CollageContext";
 import SearchMedia from "./SearchMedia";
 import TitlesContainer from "./TitlesContainer";
-import { createBoxes, changeMatrix, shuffle } from "../utils";
+// import { resizeMatrix, shuffle } from "../utils";
+import { resizeMatrix, createBoxes, shuffle } from "../utils";
 import "../styles/container.css";
 
 const Container = () => {
   // Functional Container component
 
   const {
-    selectedId,
+    // selectedId,
     getId,
-    selectedImage,
+    // selectedImage,
     numRows,
     numCols,
     color,
@@ -41,19 +42,13 @@ const Container = () => {
     gradientAngle,
   } = useContext(CollageContext);
 
-  // Component state
-
-  // Array of box objects
-  // The length of the array depends on the dimensions of the collage
-  // lenght of array = rows * columns
   const [boxes, setBoxes] = useState(createBoxes(numRows, numCols));
+
   // An array of media titles (strings)
   const [titles, setTitles] = useState([]);
   //
   const [width, setWidth] = useState(null);
   const widthRef = useRef(null);
-
-  console.log(boxes);
 
   const moveBox = useCallback(
     (dragIndex, hoverIndex) => {
@@ -94,27 +89,16 @@ const Container = () => {
     [boxes, sort]
   );
 
+  // Make sure it doesn't run on the first render
+  const initialRenderRef = useRef(true);
   useEffect(() => {
-    // Change the grid by adding / removing boxes based on # rows/columns
-    setBoxes((prevBox) => changeMatrix(numRows, numCols, prevBox));
+    if (initialRenderRef.current) {
+      initialRenderRef.current = false;
+    } else {
+      // Resize the grid by adding / removing boxes based on # rows/columns
+      setBoxes((prevBox) => resizeMatrix(numRows, numCols, prevBox));
+    }
   }, [numRows, numCols]);
-
-  useEffect(() => {
-    // Update selected box with selected image/info from search results
-    const updatedBoxes = boxes.map((box) => {
-      if (box.id === selectedId) {
-        return {
-          ...box,
-          image: selectedImage.image,
-          data: selectedImage.data,
-        };
-      }
-      return box;
-    });
-    // Update boxes state with new media object
-    setBoxes(updatedBoxes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedImage]);
 
   useEffect(() => {
     // Generate a random collage from the values in the randomList
@@ -142,14 +126,14 @@ const Container = () => {
     setTitles(albumData);
   }, [boxes]);
 
-  // const initialRender = useRef(true);
+  const initialRender = useRef(true);
   useEffect(() => {
-    // if (initialRender.current) {
-    //     initialRender.current = false
-    // } else {
-    //     setBoxes(prevBox => shuffle(prevBox));
-    // };
-    setBoxes((prevBox) => shuffle(prevBox));
+    // Don't shuffle on initial render
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      setBoxes((prevBox) => shuffle(prevBox));
+    }
   }, [shuffled]);
 
   useEffect(() => {
@@ -228,7 +212,7 @@ const Container = () => {
   return (
     <div className="container-container">
       {/* {displaySearch? <SearchAlbum /> : null} */}
-      <SearchMedia />
+      <SearchMedia setBoxes={setBoxes} />
       <div className="collage">
         <table ref={widthRef} style={backgroundStyle}>
           <tbody>{body}</tbody>

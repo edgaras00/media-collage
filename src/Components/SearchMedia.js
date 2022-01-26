@@ -5,7 +5,7 @@ import Cover from "./Cover";
 import { replaceSpaces } from "../utils";
 import "../styles/searchMedia.css";
 
-const SearchMedia = () => {
+const SearchMedia = ({ setBoxes }) => {
   // A functional modal component that lets the user search for media images
 
   // Component state
@@ -16,9 +16,7 @@ const SearchMedia = () => {
   // for the user to select the image to add it to the collage
   const [searchData, setSearchData] = useState([]);
 
-  const { selectImage, displaySearch, closeSearch, searchMode } = useContext(
-    CollageContext
-  );
+  const { displaySearch, closeSearch, searchMode } = useContext(CollageContext);
 
   useEffect(() => {
     if (!displaySearch) {
@@ -126,7 +124,8 @@ const SearchMedia = () => {
         name={name}
         artist={artist}
         key={index + name}
-        handleClick={selectImage}
+        setBoxes={setBoxes}
+        // handleClick={selectImage}
       />
     );
   });

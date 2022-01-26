@@ -15,68 +15,44 @@ const Box = ({
   borderRadius,
 }) => {
   const ref = useRef(null);
-  const [, drop] = useDrop({
-    // The useDrop hook provides a way to wire in the component
-    // into the DnD system as a drop target
 
+  const [, drop] = useDrop({
+    /* 
+      The useDrop hook provides a way to wire in the component into the DnD 
+      system as a drop target 
+    */
     // The "type" to accept as a droppable object
     accept: ItemTypes.BOX,
-
-    drop(item, monitor) {
-      // Function that is called when a compatible item is dropped
-      // on the target
+    drop(item) {
+      // Function that is called when a compatible item is dropped on target
 
       // If box ref is null exit the function
       if (!ref.current) {
         return;
       }
 
+      // Don't replace items with themselves
+      // Exit if dragged box is hovering over its own index
       const dragIndex = item.index;
       const hoverIndex = index;
-      // Don't replace items with themselves
-      // If dragged box is hovering over its own index
       if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      // Determine rectangle on screen
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
       moveBox(dragIndex, hoverIndex);
       item.index = hoverIndex;
     },
   });
-  // eslint-disable-next-line no-unused-vars
-  const [{ isDragging }, drag] = useDrag({
-    // useDrag hooks provides a way to wire in the component
-    // into the DnD system as a drag source
 
-    // "type" is required. It is used by the "accept specification"
-    // of drop targets
+  const [, drag] = useDrag({
+    /*
+      useDrag hook provides a way to wire in the component into the DnD
+      system as a drag source
+    */
+
+    // type: used by the "accept specification" of drop targets
     item: { type: ItemTypes.BOX, id, index },
-    // The "collect" function utilizes a "monitor" instance to pull
-    // important pieces of state from the DnD system
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
   });
+
   drag(drop(ref));
 
   // Box dimensions

@@ -55,9 +55,11 @@ const Container = () => {
 
   const moveBox = useCallback(
     (dragIndex, hoverIndex) => {
-      // Uses useCallback hookd so that the function is not recreated every
-      // time the component renders
-      // Only when the 'boxes' and 'sort' values change
+      /* 
+        Uses useCallback hook so that the function is not recreated every
+        time the component renders Only when the 
+        'boxes' and 'sort' values change 
+      */
 
       // Selected box that is being dragged
       const dragBox = boxes[dragIndex];

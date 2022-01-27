@@ -50,7 +50,6 @@ const CollageContextProvider = (props) => {
 
   // Display search modal (true/false)
   const [displaySearch, setDisplaySearch] = useState(false);
-  const [searchByAlbum, setSearchByAlbum] = useState(true);
 
   // Options functions
 
@@ -287,7 +286,6 @@ const CollageContextProvider = (props) => {
         setShuffled,
         clear,
         setClear,
-        searchByAlbum,
         closeSearch,
         searchMode,
         setSearchMode,

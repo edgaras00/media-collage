@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CollageContext } from "../Context/CollageContext";
 import "../styles/cover.css";
 
-const Cover = ({ image, artist, name, handleClick, setBoxes }) => {
+const Cover = ({ image, artist, name, setBoxes }) => {
   // Functional cover component
   // This component is used in the SearchmMedia modal component
   // Showed as a search result and contains info such as artist/title
@@ -10,7 +10,7 @@ const Cover = ({ image, artist, name, handleClick, setBoxes }) => {
   // const { selectedId, setBoxes, closeSearch } = useContext(CollageContext);
   const { selectedId, closeSearch, searchMode } = useContext(CollageContext);
 
-  const handleTest = () => {
+  const handleClick = () => {
     setBoxes((prevBoxes) => {
       const modified = prevBoxes.map((box) => {
         let mediaName = searchMode === "music" ? `${artist} - ${name}` : name;
@@ -34,8 +34,7 @@ const Cover = ({ image, artist, name, handleClick, setBoxes }) => {
         className="search-cover"
         src={image}
         alt={`${artist} - ${name}`}
-        // onClick={() => handleClick(image, artist, name)}
-        onClick={handleTest}
+        onClick={handleClick}
       />
     </div>
   );

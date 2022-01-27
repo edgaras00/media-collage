@@ -1,13 +1,13 @@
 import React from "react";
 
-function TitlesContainer({
+const TitlesContainer = ({
   titles,
   numRows,
   numCols,
   fontFamily,
   fontColor,
   width,
-}) {
+}) => {
   // Functional component that holds the media titles
 
   // Separate the titles into separate groups based on rows / columns
@@ -46,6 +46,6 @@ function TitlesContainer({
       {listItems}
     </ul>
   );
-}
+};
 
 export default TitlesContainer;

@@ -8,7 +8,7 @@ const Box = ({
   index,
   moveBox,
   image,
-  margin,
+  boxMargin,
   handleClick,
   numCols,
   boxType,
@@ -79,7 +79,7 @@ const Box = ({
     height: boxType === "square" ? dims + "px" : dims / 0.7 + "px",
     width: dims + "px",
     backgroundColor: "lightgrey",
-    margin: margin,
+    margin: boxMargin,
     border: "none",
   };
   return (

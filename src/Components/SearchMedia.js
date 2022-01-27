@@ -125,7 +125,6 @@ const SearchMedia = ({ setBoxes }) => {
         artist={artist}
         key={index + name}
         setBoxes={setBoxes}
-        // handleClick={selectImage}
       />
     );
   });

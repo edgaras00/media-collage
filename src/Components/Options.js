@@ -10,41 +10,41 @@ const Options = () => {
   const {
     numRows,
     numCols,
-    changeRows,
-    changeCols,
+    setNumRows,
+    setNumCols,
     color,
-    colorOne,
-    colorTwo,
-    changeColorOne,
-    changeColorTwo,
+    firstGradientColor,
+    secondGradientColor,
+    setFirstGradientColor,
+    setSecondGradientColor,
     fontColor,
-    changeColor,
-    changeFontColor,
-    margin,
-    changeMargin,
-    toggleDisplayTitle,
+    setColor,
+    setFontColor,
+    boxMargin,
+    setBoxMargin,
+    setDisplayTitles,
     displayTitle,
-    font,
-    changeFont,
+    fontFamily,
+    setFontFamily,
     sort,
-    toggleSort,
+    setSort,
     generateRandomCollage,
     generateRandomAnimeCollage,
     generateRandomMovieCollage,
     generateRandomTvCollage,
     generateRandomGameCollage,
-    toggleShuffle,
-    toggleClear,
+    setShuffled,
+    setClear,
     searchMode,
-    changeSearchMode,
+    setSearchMode,
     boxType,
-    changeBoxType,
+    setBoxType,
     backgroundMode,
-    changeBackgroundMode,
+    setBackgroundMode,
     borderRadius,
-    changeBorderRadius,
+    setBorderRadius,
     gradientAngle,
-    changeGradientAngle,
+    setGradientAngle,
   } = useContext(CollageContext);
 
   // Generate random collage based on the selected mode
@@ -82,7 +82,7 @@ const Options = () => {
             step="1"
             name="numRows"
             value={numRows}
-            onChange={(event) => changeRows(event.target.value)}
+            onChange={(event) => setNumRows(event.target.value * 1)}
           />{" "}
           {numRows}
         </label>
@@ -97,7 +97,7 @@ const Options = () => {
             max="10"
             step="1"
             value={numCols}
-            onChange={(event) => changeCols(event.target.value)}
+            onChange={(event) => setNumCols(event.target.value * 1)}
           />
           {numCols}
         </label>
@@ -108,14 +108,14 @@ const Options = () => {
           Margin (pixels):
           <input
             type="range"
-            name="margin"
+            name="boxMargin"
             min="0"
             max="15"
             step="1"
-            value={margin}
-            onChange={(event) => changeMargin(event.target.value)}
+            value={boxMargin}
+            onChange={(event) => setBoxMargin(Number(event.target.value))}
           />
-          {margin}
+          {boxMargin}
         </label>
         <br />
         <br />
@@ -129,7 +129,7 @@ const Options = () => {
             max="50"
             step="1"
             value={borderRadius}
-            onChange={(event) => changeBorderRadius(event.target.value)}
+            onChange={(event) => setBorderRadius(event.target.value * 1)}
           />
         </label>
         <br />
@@ -141,7 +141,7 @@ const Options = () => {
             name="boxType"
             value="square"
             checked={boxType === "square"}
-            onChange={(event) => changeBoxType(event.target.value)}
+            onChange={(event) => setBoxType(event.target.value)}
           />
           Square
         </label>
@@ -153,7 +153,7 @@ const Options = () => {
             name="boxType"
             value="rectangle"
             checked={boxType === "rectangle"}
-            onChange={(event) => changeBoxType(event.target.value)}
+            onChange={(event) => setBoxType(event.target.value)}
           />
           Rectangle
         </label>
@@ -162,7 +162,7 @@ const Options = () => {
         {/* Select input for search mode. What kind of media to look for. */}
         <select
           name="searchMode"
-          onChange={(event) => changeSearchMode(event.target.value)}
+          onChange={(event) => setSearchMode(event.target.value)}
         >
           <option value="music">Music</option>
           <option value="movies">Movies</option>
@@ -179,7 +179,7 @@ const Options = () => {
             name="backgroundMode"
             value="regular"
             checked={backgroundMode === "regular"}
-            onChange={(event) => changeBackgroundMode(event.target.value)}
+            onChange={(event) => setBackgroundMode(event.target.value)}
           />
           Regular
         </label>
@@ -191,7 +191,7 @@ const Options = () => {
             name="backgroundMode"
             value="gradient"
             checked={backgroundMode === "gradient"}
-            onChange={(event) => changeBackgroundMode(event.target.value)}
+            onChange={(event) => setBackgroundMode(event.target.value)}
           />
           Gradient
         </label>
@@ -205,7 +205,7 @@ const Options = () => {
               type="text"
               name="color"
               value={color}
-              onChange={(event) => changeColor(event.target.value)}
+              onChange={(event) => setColor(event.target.value)}
             />
           </label>
         ) : (
@@ -216,14 +216,18 @@ const Options = () => {
                 <input
                   type="text"
                   name="colorOne"
-                  value={colorOne}
-                  onChange={(event) => changeColorOne(event.target.value)}
+                  value={firstGradientColor}
+                  onChange={(event) =>
+                    setFirstGradientColor(event.target.value)
+                  }
                 />
                 <input
                   type="text"
                   name="colorTwo"
-                  value={colorTwo}
-                  onChange={(event) => changeColorTwo(event.target.value)}
+                  value={secondGradientColor}
+                  onChange={(event) =>
+                    setSecondGradientColor(event.target.value)
+                  }
                 />
               </div>
             </label>
@@ -234,7 +238,7 @@ const Options = () => {
                 min="0"
                 max="100"
                 value={gradientAngle}
-                onChange={(event) => changeGradientAngle(event.target.value)}
+                onChange={(event) => setGradientAngle(event.target.value * 1)}
               />
             </label>
           </div>
@@ -245,8 +249,8 @@ const Options = () => {
         <label>
           <span>Font: </span>
           <select
-            value={font}
-            onChange={(event) => changeFont(event.target.value)}
+            value={fontFamily}
+            onChange={(event) => setFontFamily(event.target.value)}
           >
             <option value="Courier">Courier</option>
             <option value="Helvetica">Helvetica</option>
@@ -262,7 +266,7 @@ const Options = () => {
             type="text"
             name="fontColor"
             value={fontColor}
-            onChange={(event) => changeFontColor(event.target.value)}
+            onChange={(event) => setFontColor(event.target.value)}
           />
         </label>
         <br />
@@ -275,7 +279,7 @@ const Options = () => {
             name="sort"
             value={sort}
             checked={sort}
-            onChange={() => toggleSort(true)}
+            onChange={() => setSort(true)}
           />
           Drag and Sort
         </label>
@@ -288,7 +292,7 @@ const Options = () => {
             name="sort"
             value={sort}
             checked={!sort}
-            onChange={() => toggleSort(false)}
+            onChange={() => setSort(false)}
           />
           Drag and Swap
         </label>
@@ -301,7 +305,7 @@ const Options = () => {
             name="displayTitle"
             value={displayTitle}
             checked={displayTitle}
-            onChange={toggleDisplayTitle}
+            onChange={() => setDisplayTitles((prev) => !prev)}
           />
           Show Titles
         </label>
@@ -318,13 +322,19 @@ const Options = () => {
         <br />
         <br />
         {/* Button that shuffles the images */}
-        <button onClick={toggleShuffle} className="menu-button">
+        <button
+          onClick={() => setShuffled((prev) => prev + 1)}
+          className="menu-button"
+        >
           Shuffle Images
         </button>
         <br />
         <br />
         {/* Button that clears the collage */}
-        <button onClick={toggleClear} className="menu-button">
+        <button
+          onClick={() => setClear((prev) => !prev)}
+          className="menu-button"
+        >
           Clear Collage
         </button>
       </div>

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { fillMissingData } from "../utils";
+import {
+  fillMissingData,
+  getRandomYearOrGenre,
+  getRandomLetter,
+  fetchMusicData,
+  getRandomAnimeType,
+  getRandomAnimeGenre,
+} from "../utils";
 
 // React Context that holds the app states that are accessible to multiple
 // components in the app
@@ -8,24 +15,15 @@ const CollageContext = React.createContext();
 
 const CollageContextProvider = (props) => {
   // Options context
-  // State for the number of rows in the grid
   const [numRows, setNumRows] = useState(3);
-  // State for the number of columns in the grid
   const [numCols, setNumCols] = useState(3);
-  // Display titles (true/false)
   const [displayTitles, setDisplayTitles] = useState(false);
-  // State for collage's background color
   const [color, setColor] = useState("#000");
-  // State for the title font color
   const [fontColor, setFontColor] = useState("#fff");
-  // State for color one of the color gradient
-  const [colorOne, setColorOne] = useState("#20BF55");
-  // State for color two of the color gradient
-  const [colorTwo, setColorTwo] = useState("#01BAEF");
-  // Set a box margin in pixels
-  const [margin, setMargin] = useState(1);
-  // Set a font for displayed titles
-  const [font, setFont] = useState("Courier");
+  const [firstGradientColor, setFirstGradientColor] = useState("#20BF55");
+  const [secondGradientColor, setSecondGradientColor] = useState("#01BAEF");
+  const [boxMargin, setBoxMargin] = useState(1);
+  const [fontFamily, setFontFamily] = useState("Courier");
   // Turn on/off the drag and sort option
   const [sort, setSort] = useState(false);
   // Array of randomly selected artwork images (Generate Random)
@@ -49,105 +47,12 @@ const CollageContextProvider = (props) => {
   // Collage context
   // State for the selected box id
   const [selectedId, setSelectedId] = useState("");
-  // State that holds the selected artwork image information
-  // Artwork image URL and the media title
+
   // Display search modal (true/false)
   const [displaySearch, setDisplaySearch] = useState(false);
   const [searchByAlbum, setSearchByAlbum] = useState(true);
 
-  // TEST
-  // Array of box objects
-  // The length of the array depends on the dimensions of the collage
-  // lenght of array = rows * columns
-  // const [boxes, setBoxes] = useState(createBoxes(numRows, numCols));
-
   // Options functions
-  const changeRows = (value) => {
-    // Function to change the number of rows
-    setNumRows(Number(value));
-  };
-
-  const changeCols = (value) => {
-    // Function to change the number of columns
-    setNumCols(Number(value));
-  };
-
-  const changeBorderRadius = (value) => {
-    // Function to change the border radius
-    setBorderRadius(Number(value));
-  };
-
-  const changeGradientAngle = (value) => {
-    // Function to change the gradient angle
-    setGradientAngle(Number(value));
-  };
-
-  const changeBoxType = (value) => {
-    // Function to change the box type
-    setBoxType(value);
-  };
-
-  const changeColor = (value) => {
-    // Function to change the background color
-    setColor(value);
-  };
-
-  const changeColorOne = (value) => {
-    // Function to change color one in the gradient background
-    setColorOne(value);
-  };
-
-  const changeColorTwo = (value) => {
-    // Function to change color two in the gradient background
-    setColorTwo(value);
-  };
-
-  const changeFontColor = (value) => {
-    // Function to change font color
-    setFontColor(value);
-  };
-
-  const changeMargin = (value) => {
-    // Function to change the box margin
-    setMargin(Number(value));
-  };
-
-  const changeFont = (value) => {
-    // Function to change the title font
-    setFont(value);
-  };
-
-  const toggleSort = (value) => {
-    // Function to sort
-    setSort(value);
-  };
-
-  const changeSearchMode = (value) => {
-    // Function to change the search mode
-    setSearchMode(value);
-  };
-
-  const changeBackgroundMode = (value) => {
-    // Function to change the background mode (regular or gradient)
-    setBackgroundMode(value);
-  };
-
-  const toggleDisplayTitle = () => {
-    // Function that shows or hides titles
-    setDisplayTitles((prevState) => !prevState);
-  };
-
-  const toggleShuffle = () => {
-    // Function that changes "shuffle" state
-    // Shuffles the collage boxes and makes component to rerender
-    // So that the shuffled images are shown
-    setShuffled((prevState) => prevState + 1);
-  };
-
-  const toggleClear = () => {
-    // Function that clears the grid
-    setClear((prevState) => !prevState);
-  };
 
   const getId = (id) => {
     // Function that sets selectedId as the clicked-on box id
@@ -162,80 +67,37 @@ const CollageContextProvider = (props) => {
   };
 
   const generateRandomCollage = async (rows, cols) => {
-    // Function that generates a random collage
+    // Function that generates a random music artwork collage
     const API = process.env.REACT_APP_MUSIC_API;
 
+    // Pick a random letter or year/genre to search artwork by
+    const randomLetter = getRandomLetter();
+    const randomGenreOrYear = getRandomYearOrGenre();
+    // Number of  boxes to fill
+    const numItems = rows * cols;
+
+    // Randomly decide which random query to run (50 50 chance)
+    const queryChoice = Math.random();
+
     try {
-      // Random album tags (searches by first letter of the album name)
-      const albumLetterTags = "abcdefghijklmnopqrstuvwxyz".split("");
-      // Random album genre and year tags
-      const genreYearTags = [
-        "pop",
-        "rap",
-        "rock",
-        "disco",
-        "electronic",
-        "80s",
-        "90s",
-        "2000s",
-        "2010s",
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-        "2019",
-      ];
-
-      // Pick a random letter or year/genre
-      const randomLetter =
-        albumLetterTags[Math.floor(Math.random() * albumLetterTags.length)];
-      const randomGenreYear =
-        genreYearTags[Math.floor(Math.random() * genreYearTags.length)];
-      // Number of  boxes to fill
-      const numItems = rows * cols;
-
-      // Query using random letter
-      const albumLetterQuery =
-        `http://ws.audioscrobbler.com/2.0/?method=album.search` +
-        `&album=${randomLetter}&api_key=${API}&format=json&limit=${numItems}`;
-
-      // Query using genre / year
-      const genreYearQuery =
-        `http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums` +
-        `&tag=${randomGenreYear}&api_key=${API}&format=json&limit=${numItems}`;
-
-      // Randomly decide which random query to run (50 50 chance)
-      const queryChoice = Math.random();
-
       if (queryChoice < 0.5) {
-        // Fetch data by random letter
-        setSearchByAlbum(true);
-        const response = await fetch(albumLetterQuery);
-        const data = await response.json();
-        const albumData = data.results.albummatches.album.map((item) => {
-          return {
-            image: item.image[2]["#text"],
-            data: `${item.artist} - ${item.name}`,
-          };
-        });
+        const albumData = await fetchMusicData(
+          randomLetter,
+          API,
+          numItems,
+          true
+        );
         setRandomList(albumData);
-      } else {
-        // Fetch data by genre / year
-        setSearchByAlbum(false);
-        const response = await fetch(genreYearQuery);
-        const data = await response.json();
-        const albumData = data.albums.album.map((item) => {
-          return {
-            image: item.image[2]["#text"],
-            data: `${item.artist.name} - ${item.name}`,
-          };
-        });
-        setRandomList(albumData);
+        return;
       }
+      const albumData = await fetchMusicData(
+        randomGenreOrYear,
+        API,
+        numItems,
+        false
+      );
+      setRandomList(albumData);
+      return;
     } catch (error) {
       console.log(error);
     }
@@ -251,51 +113,13 @@ const CollageContextProvider = (props) => {
       const randomPage =
         animePage[Math.floor(Math.random() * animePage.length)];
 
-      // Top anime query (movie or tv series)
-      const animeType = ["movie", "tv"];
-      // Genre anime query
-      const genreIds = [
-        1,
-        2,
-        3,
-        4,
-        6,
-        7,
-        10,
-        11,
-        14,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        23,
-        27,
-        29,
-        30,
-        31,
-        32,
-        36,
-        37,
-        38,
-        39,
-        40,
-        41,
-        42,
-      ];
-
-      // Select a random type of anime (Movie or TV series)
-      const randomType =
-        animeType[Math.floor(Math.random() * animeType.length)];
-      // Select a random genre by the API genre ids
-      const randomGenreId =
-        genreIds[Math.floor(Math.random() * genreIds.length)];
+      const animeType = getRandomAnimeType();
+      const animeGenre = getRandomAnimeGenre();
 
       // Anime query by anime type | Returns top movies/shows
-      const typeAnimeQuery = `https://api.jikan.moe/v3/top/anime/${randomPage}/${randomType}`;
+      const typeAnimeQuery = `https://api.jikan.moe/v3/top/anime/${randomPage}/${animeType}`;
       // Anime query by genre | Returns by genres
-      const genreAnimeQuery = `https://api.jikan.moe/v3/genre/anime/${randomGenreId}`;
+      const genreAnimeQuery = `https://api.jikan.moe/v3/genre/anime/${animeGenre}`;
       // Randomly choose which query to use
       const randomChoice = Math.random();
 
@@ -307,23 +131,15 @@ const CollageContextProvider = (props) => {
 
       const response = await fetch(queryUrl);
       const data = await response.json();
-      if (randomChoice >= 0.5) {
-        const animeData = data.top.map((item) => {
-          return {
-            image: item.image_url,
-            data: item.title,
-          };
-        });
-        setRandomList(animeData);
-      } else {
-        const animeData = data.anime.map((item) => {
-          return {
-            image: item.image_url,
-            data: item.title,
-          };
-        });
-        setRandomList(animeData);
-      }
+
+      const animeData = randomChoice >= 0.5 ? data.top : data.anime;
+      const animeObjects = animeData.map((item) => {
+        return {
+          image: item.image_url,
+          data: item.title,
+        };
+      });
+      setRandomList(animeObjects);
     } catch (error) {
       console.log(error);
     }
@@ -443,26 +259,24 @@ const CollageContextProvider = (props) => {
         displaySearch,
         numRows,
         numCols,
-        changeCols,
-        changeRows,
+        setNumCols,
+        setNumRows,
         color,
-        colorOne,
-        colorTwo,
+        firstGradientColor,
+        secondGradientColor,
         fontColor,
-        changeColor,
-        changeFontColor,
-        changeColorOne,
-        changeColorTwo,
-        margin,
-        changeMargin,
-        // albumData,
-        // setAlbumData,
+        setColor,
+        setFontColor,
+        setFirstGradientColor,
+        setSecondGradientColor,
+        boxMargin,
+        setBoxMargin,
         displayTitles,
-        toggleDisplayTitle,
-        font,
-        changeFont,
+        setDisplayTitles,
+        fontFamily,
+        setFontFamily,
         sort,
-        toggleSort,
+        setSort,
         randomList,
         generateRandomCollage,
         generateRandomAnimeCollage,
@@ -470,21 +284,21 @@ const CollageContextProvider = (props) => {
         generateRandomTvCollage,
         generateRandomGameCollage,
         shuffled,
-        toggleShuffle,
+        setShuffled,
         clear,
-        toggleClear,
+        setClear,
         searchByAlbum,
         closeSearch,
         searchMode,
-        changeSearchMode,
+        setSearchMode,
         boxType,
-        changeBoxType,
+        setBoxType,
         backgroundMode,
-        changeBackgroundMode,
+        setBackgroundMode,
         borderRadius,
-        changeBorderRadius,
+        setBorderRadius,
         gradientAngle,
-        changeGradientAngle,
+        setGradientAngle,
       }}
     >
       {props.children}

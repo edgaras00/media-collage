@@ -1,6 +1,13 @@
 import React from "react";
 
-function TitlesContainer({ titles, numRows, numCols, font, fontColor, width }) {
+function TitlesContainer({
+  titles,
+  numRows,
+  numCols,
+  fontFamily,
+  fontColor,
+  width,
+}) {
   // Functional component that holds the media titles
 
   // Separate the titles into separate groups based on rows / columns
@@ -26,7 +33,7 @@ function TitlesContainer({ titles, numRows, numCols, font, fontColor, width }) {
     <ul
       style={{
         listStyle: "none",
-        fontFamily: font,
+        fontFamily,
         color: fontColor,
         width: "100%",
         overflow: "auto",

@@ -7,34 +7,35 @@ import React, {
 } from "react";
 import update from "immutability-helper";
 import Box from "./Box";
-import { CollageContext } from "../Context/CollageContext";
 import SearchMedia from "./SearchMedia";
 import TitlesContainer from "./TitlesContainer";
-// import { resizeMatrix, shuffle } from "../utils";
-import { resizeMatrix, createBoxes, shuffle } from "../utils";
+import { CollageContext } from "../Context/CollageContext";
+import {
+  resizeMatrix,
+  createBoxes,
+  shuffle,
+  createMatrixTable,
+} from "../utils";
 import "../styles/container.css";
 
 const Container = () => {
   // Functional Container component
 
   const {
-    // selectedId,
     getId,
-    // selectedImage,
     numRows,
     numCols,
     color,
-    colorOne,
-    colorTwo,
+    firstGradientColor,
+    secondGradientColor,
     fontColor,
-    margin,
+    boxMargin,
     displayTitles,
-    font,
+    fontFamily,
     sort,
     randomList,
     shuffled,
     clear,
-    searchByAlbum,
     searchMode,
     backgroundMode,
     boxType,
@@ -90,10 +91,10 @@ const Container = () => {
   );
 
   // Make sure it doesn't run on the first render
-  const initialRenderRef = useRef(true);
+  const initialRenderResizeRef = useRef(true);
   useEffect(() => {
-    if (initialRenderRef.current) {
-      initialRenderRef.current = false;
+    if (initialRenderResizeRef.current) {
+      initialRenderResizeRef.current = false;
     } else {
       // Resize the grid by adding / removing boxes based on # rows/columns
       setBoxes((prevBox) => resizeMatrix(numRows, numCols, prevBox));
@@ -118,7 +119,7 @@ const Container = () => {
       });
       return randomCollage;
     });
-  }, [randomList, searchByAlbum]);
+  }, [randomList]);
 
   useEffect(() => {
     // Populate the title state array with media titles
@@ -126,11 +127,11 @@ const Container = () => {
     setTitles(albumData);
   }, [boxes]);
 
-  const initialRender = useRef(true);
+  const initialRenderShuffleRef = useRef(true);
   useEffect(() => {
     // Don't shuffle on initial render
-    if (initialRender.current) {
-      initialRender.current = false;
+    if (initialRenderShuffleRef.current) {
+      initialRenderShuffleRef.current = false;
     } else {
       setBoxes((prevBox) => shuffle(prevBox));
     }
@@ -139,14 +140,14 @@ const Container = () => {
   useEffect(() => {
     // Clear collage is user chooses the "Clear Collage" option
     setBoxes((prevBox) => {
-      const newArr = prevBox.map((item) => {
+      const modified = prevBox.map((item) => {
         return {
           ...item,
           image: "",
           data: "",
         };
       });
-      return newArr;
+      return modified;
     });
   }, [clear]);
 
@@ -169,7 +170,7 @@ const Container = () => {
         image={box.image}
         moveBox={moveBox}
         handleClick={getId}
-        margin={margin}
+        boxMargin={boxMargin}
         numCols={numCols}
         boxType={boxType}
         borderRadius={borderRadius}
@@ -177,41 +178,19 @@ const Container = () => {
     );
   });
 
-  // Create a matrix of box components
-  // Nested array
-  const matrix = [];
-  let start = 0;
-  // Number of columns in the matrix
-  let end = numCols;
-  for (let i = 0; i < numRows; i++) {
-    matrix.push(boxComponents.slice(start, end));
-    start += numCols;
-    end += numCols;
-  }
-
-  // Create a table body from the matrix
-  const body = matrix.map((row, rowIndex) => {
-    return (
-      <tr key={rowIndex}>
-        {row.map((column, colIndex) => {
-          const cell = <td key={colIndex}>{column}</td>;
-          return cell;
-        })}
-      </tr>
-    );
-  });
+  // Create a table body
+  const body = createMatrixTable(boxComponents, numRows, numCols);
 
   // Choose background style: regular or linear gradient
   const backgroundStyle =
     backgroundMode === "regular"
       ? { backgroundColor: color }
       : {
-          background: `linear-gradient(${gradientAngle}deg, ${colorOne}, ${colorTwo})`,
+          background: `linear-gradient(${gradientAngle}deg, ${firstGradientColor}, ${secondGradientColor})`,
         };
 
   return (
-    <div className="container-container">
-      {/* {displaySearch? <SearchAlbum /> : null} */}
+    <div className="container-wrapper">
       <SearchMedia setBoxes={setBoxes} />
       <div className="collage">
         <table ref={widthRef} style={backgroundStyle}>
@@ -224,7 +203,7 @@ const Container = () => {
                     titles={titles}
                     numCols={numCols}
                     numRows={numRows}
-                    font={font}
+                    fontFamily={fontFamily}
                     fontColor={fontColor}
                     width={width}
                     searchMode={searchMode}

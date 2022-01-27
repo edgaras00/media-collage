@@ -144,9 +144,11 @@ const fetchMusicData = async (query, API, numItems, byAlbum) => {
   const albumData = byAlbum
     ? data.results.albummatches.album
     : data.albums.album;
+  console.log(byAlbum);
+  console.log(albumData);
   const albumObjects = albumData.map((item) => ({
     image: item.image[2]["#text"],
-    data: `${item.artist} - ${item.name}`,
+    data: `${byAlbum ? item.artist : item.artist.name} - ${item.name}`,
   }));
   return albumObjects;
 };

@@ -11,6 +11,7 @@ const Cover = ({ image, artist, name, setBoxes }) => {
   const { selectedId, closeSearch, searchMode } = useContext(CollageContext);
 
   const handleClick = () => {
+    console.log(artist, name);
     setBoxes((prevBoxes) => {
       const modified = prevBoxes.map((box) => {
         let mediaName = searchMode === "music" ? `${artist} - ${name}` : name;

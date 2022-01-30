@@ -38,7 +38,7 @@ const TitlesContainer = ({
         width: "100%",
         overflow: "auto",
         // reduce font size with increasing width
-        fontSize: `${800 / width}em`,
+        fontSize: `${800 / width}rem`,
         whiteSpace: "nowrap",
         padding: "0 4%",
       }}

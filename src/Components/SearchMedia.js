@@ -90,6 +90,8 @@ const SearchMedia = ({ setBoxes }) => {
     }
   };
 
+  console.log(searchData);
+
   // Create coverComponents that are presented on the search modal
   const coverComponents = searchData.map((item, index) => {
     // Different API data is differently structured

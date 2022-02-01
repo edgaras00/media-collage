@@ -1,9 +1,9 @@
 .search-cover {
-    height: 91px;
-    width: 91px;
+  height: 91px;
+  width: 91px;
 }
 
 .search-cover:hover {
-    cursor: pointer;
-    opacity: 70%;
+  cursor: pointer;
+  opacity: 70%;
 }

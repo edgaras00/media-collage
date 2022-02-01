@@ -7,12 +7,12 @@ import "./styles/app.css";
 
 function App() {
   return (
-    <div className="app-container">
-      <Options />
-      <DndProvider backend={Backend}>
+    <DndProvider backend={Backend}>
+      <div className="app-container">
+        <Options />
         <Container />
-      </DndProvider>
-    </div>
+      </div>
+    </DndProvider>
   );
 }
 

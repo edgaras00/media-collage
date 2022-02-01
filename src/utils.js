@@ -64,7 +64,6 @@ function fillMissingData(array, numberOfItems) {
       array.push(...array.slice(0, difference));
     }
   }
-  console.log("end looping");
   return array;
 }
 
@@ -144,8 +143,7 @@ const fetchMusicData = async (query, API, numItems, byAlbum) => {
   const albumData = byAlbum
     ? data.results.albummatches.album
     : data.albums.album;
-  console.log(byAlbum);
-  console.log(albumData);
+
   const albumObjects = albumData.map((item) => ({
     image: item.image[2]["#text"],
     data: `${byAlbum ? item.artist : item.artist.name} - ${item.name}`,

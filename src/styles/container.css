@@ -1,5 +1,5 @@
 .container-wrapper {
-  width: 100%;
+  width: 80%;
   height: 100%;
   overflow: auto;
 }
@@ -7,5 +7,5 @@
 .collage {
   display: flex;
   flex-direction: row;
-  overflow: auto;
+  overflow: visible;
 }

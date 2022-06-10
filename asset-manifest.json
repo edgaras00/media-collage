@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/media-collage/static/css/main.fc32d9e0.chunk.css",
+    "main.css": "/media-collage/static/css/main.aa1159cc.chunk.css",
     "main.js": "/media-collage/static/js/main.f1a8da85.chunk.js",
     "main.js.map": "/media-collage/static/js/main.f1a8da85.chunk.js.map",
     "runtime-main.js": "/media-collage/static/js/runtime-main.69fe505c.js",
@@ -8,15 +8,15 @@
     "static/js/2.c0c6ab7d.chunk.js": "/media-collage/static/js/2.c0c6ab7d.chunk.js",
     "static/js/2.c0c6ab7d.chunk.js.map": "/media-collage/static/js/2.c0c6ab7d.chunk.js.map",
     "index.html": "/media-collage/index.html",
-    "precache-manifest.afd487d7cdfbc45d8bd0726b5cbdd4c1.js": "/media-collage/precache-manifest.afd487d7cdfbc45d8bd0726b5cbdd4c1.js",
+    "precache-manifest.07c516396e7dcf1c7e981e46e70955d5.js": "/media-collage/precache-manifest.07c516396e7dcf1c7e981e46e70955d5.js",
     "service-worker.js": "/media-collage/service-worker.js",
-    "static/css/main.fc32d9e0.chunk.css.map": "/media-collage/static/css/main.fc32d9e0.chunk.css.map",
+    "static/css/main.aa1159cc.chunk.css.map": "/media-collage/static/css/main.aa1159cc.chunk.css.map",
     "static/js/2.c0c6ab7d.chunk.js.LICENSE.txt": "/media-collage/static/js/2.c0c6ab7d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.69fe505c.js",
     "static/js/2.c0c6ab7d.chunk.js",
-    "static/css/main.fc32d9e0.chunk.css",
+    "static/css/main.aa1159cc.chunk.css",
     "static/js/main.f1a8da85.chunk.js"
   ]
 }

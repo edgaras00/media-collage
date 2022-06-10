@@ -1,7 +1,7 @@
 .box {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .box:hover {
-    opacity: 80%;
+  /* opacity: 80%; */
 }

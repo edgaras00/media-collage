@@ -94,103 +94,105 @@ const createMatrixTable = (data, numRows, numCols) => {
   return body;
 };
 
-const getRandomLetter = () => {
-  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
-  const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-  return randomLetter;
-};
+// const getRandomLetter = () => {
+//   const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+//   const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+//   return randomLetter;
+// };
 
-const getRandomYearOrGenre = () => {
-  const genresAndYears = [
-    "pop",
-    "rap",
-    "rock",
-    "disco",
-    "electronic",
-    "80s",
-    "90s",
-    "2000s",
-    "2010s",
-    "2010",
-    "2011",
-    "2012",
-    "2013",
-    "2014",
-    "2015",
-    "2016",
-    "2017",
-    "2019",
-    "2020",
-    "2021",
-    "2022",
-  ];
-  const randomGenreOrYear =
-    genresAndYears[Math.floor(Math.random() * genresAndYears.length)];
-  return randomGenreOrYear;
-};
+// const getRandomYearOrGenre = () => {
+//   const genresAndYears = [
+//     "pop",
+//     "rap",
+//     "rock",
+//     "disco",
+//     "electronic",
+//     "80s",
+//     "90s",
+//     "2000s",
+//     "2008",
+//     "2009",
+//     "2010s",
+//     "2010",
+//     "2011",
+//     "2012",
+//     "2013",
+//     "2014",
+//     "2015",
+//     "2016",
+//     "2017",
+//     "2019",
+//     "2020",
+//     "2021",
+//     "2022",
+//   ];
+//   const randomGenreOrYear =
+//     genresAndYears[Math.floor(Math.random() * genresAndYears.length)];
+//   return randomGenreOrYear;
+// };
 
-const fetchMusicData = async (query, API, numItems, byAlbum) => {
-  const albumLetterQuery =
-    `http://ws.audioscrobbler.com/2.0/?method=album.search` +
-    `&album=${query}&api_key=${API}&format=json&limit=${numItems}`;
+// const fetchMusicData = async (query, API, numItems, byAlbum) => {
+//   const albumLetterQuery =
+//     `http://ws.audioscrobbler.com/2.0/?method=album.search` +
+//     `&album=${query}&api_key=${API}&format=json&limit=${numItems}`;
 
-  const genreYearQuery =
-    `http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums` +
-    `&tag=${query}&api_key=${API}&format=json&limit=${numItems}`;
+//   const genreYearQuery =
+//     `http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums` +
+//     `&tag=${query}&api_key=${API}&format=json&limit=${numItems}`;
 
-  const response = await fetch(byAlbum ? albumLetterQuery : genreYearQuery);
-  const data = await response.json();
-  const albumData = byAlbum
-    ? data.results.albummatches.album
-    : data.albums.album;
+//   const response = await fetch(byAlbum ? albumLetterQuery : genreYearQuery);
+//   const data = await response.json();
+//   const albumData = byAlbum
+//     ? data.results.albummatches.album
+//     : data.albums.album;
 
-  const albumObjects = albumData.map((item) => ({
-    image: item.image[2]["#text"],
-    data: `${byAlbum ? item.artist : item.artist.name} - ${item.name}`,
-  }));
-  return albumObjects;
-};
+//   const albumObjects = albumData.map((item) => ({
+//     image: item.image[2]["#text"],
+//     data: `${byAlbum ? item.artist : item.artist.name} - ${item.name}`,
+//   }));
+//   return albumObjects;
+// };
 
-const getRandomAnimeType = () => {
-  const animeType = ["movie", "tv"];
-  const randomType = animeType[Math.floor(Math.random() * animeType.length)];
-  return randomType;
-};
+// const getRandomAnimeType = () => {
+//   const animeType = ["movie", "tv"];
+//   const randomType = animeType[Math.floor(Math.random() * animeType.length)];
+//   return randomType;
+// };
 
-const getRandomAnimeGenre = () => {
-  const genreIds = [
-    1,
-    2,
-    3,
-    4,
-    6,
-    7,
-    10,
-    11,
-    14,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    23,
-    27,
-    29,
-    30,
-    31,
-    32,
-    36,
-    37,
-    38,
-    39,
-    40,
-    41,
-    42,
-  ];
-  const randomGenreId = genreIds[Math.floor(Math.random() * genreIds.length)];
-  return randomGenreId;
-};
+// const getRandomAnimeGenre = () => {
+//   const genreIds = [
+//     1,
+//     2,
+//     3,
+//     4,
+//     6,
+//     7,
+//     10,
+//     11,
+//     14,
+//     16,
+//     17,
+//     18,
+//     19,
+//     20,
+//     21,
+//     23,
+//     27,
+//     29,
+//     30,
+//     31,
+//     32,
+//     36,
+//     37,
+//     38,
+//     39,
+//     40,
+//     41,
+//     42,
+//   ];
+//   const randomGenreId = genreIds[Math.floor(Math.random() * genreIds.length)];
+//   return randomGenreId;
+// };
 
 export {
   createBoxes,
@@ -200,9 +202,9 @@ export {
   fillMissingData,
   createMatrix,
   createMatrixTable,
-  getRandomLetter,
-  getRandomYearOrGenre,
-  fetchMusicData,
-  getRandomAnimeGenre,
-  getRandomAnimeType,
+  // getRandomLetter,
+  // getRandomYearOrGenre,
+  // fetchMusicData,
+  // getRandomAnimeGenre,
+  // getRandomAnimeType,
 };

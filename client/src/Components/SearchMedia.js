@@ -29,42 +29,18 @@ const SearchMedia = ({ setBoxes }) => {
   let query;
   switch (searchMode) {
     case "music":
-      // API = process.env.REACT_APP_MUSIC_API;
-      // query =
-      //   `http://ws.audioscrobbler.com/2.0/?method=album.search&` +
-      //   `album=${replaceSpaces(search)}` +
-      //   `&api_key=${API}&format=json&limit=20`;
       query = `http://localhost:5000/api/music?query=${replaceSpaces(search)}`;
       break;
-
     case "movies":
-      // API = process.env.REACT_APP_MOVIE_API;
-      // query =
-      //   `https://api.themoviedb.org/3/search/movie?` +
-      //   `api_key=${API}&language=en-US&query=${replaceSpaces(search)}` +
-      //   `&page=1&include_adult=false`;
       query = `http://localhost:5000/api/movies?query=${replaceSpaces(search)}`;
       break;
-
     case "tv":
-      // API = process.env.REACT_APP_MOVIE_API;
-      // query =
-      //   `https://api.themoviedb.org/3/search/tv?api_key=${API}` +
-      //   `&language=en-US&page=1&query=${replaceSpaces(search)}` +
-      //   `&include_adult=false`;
       query = `http://localhost:5000/api/tv?query=${replaceSpaces(search)}`;
       break;
     case "anime":
-      // query =
-      //   `https://api.jikan.moe/v3/search/anime?` +
-      //   `q=${replaceSpaces(search)}&limit=20`;
       query = `http://localhost:5000/api/anime?query=${replaceSpaces(search)}`;
       break;
     case "videogames":
-      // API = process.env.REACT_APP_GAME_API;
-      // query = `https://api.rawg.io/api/games?search=${replaceSpaces(
-      //   search
-      // )}&key=${API}`;
       query = `http://localhost:5000/api/games?query=${replaceSpaces(search)}`;
       break;
     default:
@@ -74,15 +50,9 @@ const SearchMedia = ({ setBoxes }) => {
     try {
       const response = await fetch(query);
       if (!response.ok) {
-        // response.status(404);
         throw new Error("404: Media not found");
       }
       const data = await response.json();
-      // if (searchMode === "music") {
-      //   setSearchData(data.results.albummatches.album);
-      // } else {
-      //   setSearchData(data.results);
-      // }
       setSearchData(data);
     } catch (error) {
       console.log(error);

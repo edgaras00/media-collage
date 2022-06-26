@@ -1,4 +1,4 @@
-const utils = require("../../utils");
+const utils = require("../utils");
 const fetch = require("node-fetch");
 
 const MUSIC_API = process.env.MUSIC_API;

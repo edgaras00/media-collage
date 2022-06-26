@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import fetch from "node-fetch";
 // React Context that holds the app states that are accessible to multiple
 // components in the app
 
@@ -60,7 +61,8 @@ const CollageContextProvider = (props) => {
     // Function that generates a random music artwork collage
     const numItems = rows * cols;
     const response = await fetch(
-      `http://localhost:5000/api/random/music?items=${numItems}`
+      // `http://localhost:5000/api/random/music?items=${numItems}`
+      `https://ccharts.herokuapp.com/api/random/music?items=${numItems}`
     );
     const musicData = await response.json();
     setRandomList(musicData);
@@ -70,7 +72,10 @@ const CollageContextProvider = (props) => {
     // Function to fetch random anime data
 
     try {
-      const response = await fetch(`http://localhost:5000/api/random/anime`);
+      // const response = await fetch(`http://localhost:5000/api/random/anime`);
+      const response = await fetch(
+        `https://ccharts.herokuapp.com/api/random/anime`
+      );
       const animeData = await response.json();
       setRandomList(animeData);
     } catch (error) {
@@ -85,7 +90,8 @@ const CollageContextProvider = (props) => {
       const numberOfItems = rows * cols;
       console.log(numberOfItems);
       const response = await fetch(
-        `http://localhost:5000/api/random/movies?items=${numberOfItems}`
+        // `http://localhost:5000/api/random/movies?items=${numberOfItems}`
+        `https://ccharts.herokuapp.com/api/random/movies?items=${numberOfItems}`
       );
       const movieData = await response.json();
       console.log(movieData);
@@ -100,7 +106,8 @@ const CollageContextProvider = (props) => {
       // Function that fetches random TV show data and creates a collage
       const numberOfItems = rows * cols;
       const response = await fetch(
-        `http://localhost:5000/api/random/tv?q=${numberOfItems}`
+        // `http://localhost:5000/api/random/tv?q=${numberOfItems}`
+        `https://ccharts.herokuapp.com/api/random/tv?items=${numberOfItems}`
       );
       const tvData = await response.json();
       setRandomList(tvData);
@@ -115,7 +122,8 @@ const CollageContextProvider = (props) => {
       // Number of objects needed
       const numberOfItems = rows * cols;
       const response = await fetch(
-        `http://localhost:5000/api/random/games?items=${numberOfItems}`
+        // `http://localhost:5000/api/random/games?items=${numberOfItems}`
+        `https://ccharts.herokuapp.com/api/random/games?items=${numberOfItems}`
       );
       const gameData = await response.json();
       setRandomList(gameData);

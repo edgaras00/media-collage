@@ -29,19 +29,29 @@ const SearchMedia = ({ setBoxes }) => {
   let query;
   switch (searchMode) {
     case "music":
-      query = `http://localhost:5000/api/music?query=${replaceSpaces(search)}`;
+      query = `https://ccharts.herokuapp.com/api/music?query=${replaceSpaces(
+        search
+      )}`;
       break;
     case "movies":
-      query = `http://localhost:5000/api/movies?query=${replaceSpaces(search)}`;
+      query = `https://ccharts.herokuapp.com/api/movies?query=${replaceSpaces(
+        search
+      )}`;
       break;
     case "tv":
-      query = `http://localhost:5000/api/tv?query=${replaceSpaces(search)}`;
+      query = `https://ccharts.herokuapp.com/api/tv?query=${replaceSpaces(
+        search
+      )}`;
       break;
     case "anime":
-      query = `http://localhost:5000/api/anime?query=${replaceSpaces(search)}`;
+      query = `https://ccharts.herokuapp.com/api/anime?query=${replaceSpaces(
+        search
+      )}`;
       break;
     case "videogames":
-      query = `http://localhost:5000/api/games?query=${replaceSpaces(search)}`;
+      query = `https://ccharts.herokuapp.com/api/games?query=${replaceSpaces(
+        search
+      )}`;
       break;
     default:
   }

@@ -66,13 +66,19 @@ exports.getAnimeData = async (req, res) => {
   try {
     const animeQuery = req.query.query;
     const APIQuery =
-      `https://api.jikan.moe/v3/search/anime?` + `q=${animeQuery}&limit=20`;
+      `https://api.jikan.moe/v4/anime?` + `q=${animeQuery}&limit=20`;
     const response = await fetch(APIQuery);
     if (!response.ok) {
       throw new Error("404: Media not found");
     }
     const animeData = await response.json();
-    res.status(200).json(animeData.results);
+
+    const filteredAnimeData = animeData.data.map((anime) => ({
+      title: anime.title,
+      image_url: anime.images.jpg.image_url,
+    }));
+
+    res.status(200).json(filteredAnimeData);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });

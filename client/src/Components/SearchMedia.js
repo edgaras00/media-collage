@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CollageContext } from "../Context/CollageContext";
+
 import Modal from "react-modal";
 import Cover from "./Cover";
+
 import { replaceSpaces } from "../utils";
 import "../styles/searchMedia.css";
 
@@ -27,35 +29,28 @@ const SearchMedia = ({ setBoxes }) => {
 
   // Build a different query for a different search mode
   let query;
+  let baseUrl = "https://mediacharts.onrender.com";
+  if (process.env.REACT_APP_ENV === "development") {
+    baseUrl = "";
+  }
   switch (searchMode) {
     case "music":
-      query = `https://ccharts.herokuapp.com/api/music?query=${replaceSpaces(
-        search
-      )}`;
+      query = `${baseUrl}/api/music?query=${replaceSpaces(search)}`;
       break;
     case "movies":
-      query = `https://ccharts.herokuapp.com/api/movies?query=${replaceSpaces(
-        search
-      )}`;
+      query = `${baseUrl}/api/movies?query=${replaceSpaces(search)}`;
       break;
     case "tv":
-      query = `https://ccharts.herokuapp.com/api/tv?query=${replaceSpaces(
-        search
-      )}`;
+      query = `${baseUrl}/api/tv?query=${replaceSpaces(search)}`;
       break;
     case "anime":
-      query = `https://ccharts.herokuapp.com/api/anime?query=${replaceSpaces(
-        search
-      )}`;
+      query = `${baseUrl}/api/anime?query=${replaceSpaces(search)}`;
       break;
     case "videogames":
-      query = `https://ccharts.herokuapp.com/api/games?query=${replaceSpaces(
-        search
-      )}`;
+      query = `${baseUrl}/api/games?query=${replaceSpaces(search)}`;
       break;
     default:
   }
-
   const getData = async () => {
     try {
       const response = await fetch(query);

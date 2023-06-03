@@ -16,6 +16,7 @@ const CollageContextProvider = (props) => {
   const [secondGradientColor, setSecondGradientColor] = useState("#01BAEF");
   const [boxMargin, setBoxMargin] = useState(1);
   const [fontFamily, setFontFamily] = useState("Courier");
+
   // Turn on/off the drag and sort option
   const [sort, setSort] = useState(false);
   // Array of randomly selected artwork images (Generate Random)
@@ -60,10 +61,11 @@ const CollageContextProvider = (props) => {
   const generateRandomCollage = async (rows, cols) => {
     // Function that generates a random music artwork collage
     const numItems = rows * cols;
-    const response = await fetch(
-      // `http://localhost:5000/api/random/music?items=${numItems}`
-      `https://ccharts.herokuapp.com/api/random/music?items=${numItems}`
-    );
+    let url = `https://mediacharts.onrender.com/api/random/music?items=${numItems}`;
+    if (process.env.REACT_APP_ENV === "development") {
+      url = `api/random/music?items=${numItems}`;
+    }
+    const response = await fetch(url);
     const musicData = await response.json();
     setRandomList(musicData);
   };
@@ -72,10 +74,11 @@ const CollageContextProvider = (props) => {
     // Function to fetch random anime data
 
     try {
-      // const response = await fetch(`http://localhost:5000/api/random/anime`);
-      const response = await fetch(
-        `https://ccharts.herokuapp.com/api/random/anime`
-      );
+      let url = "https://mediacharts.onrender.com/api/random/anime";
+      if (process.env.REACT_APP_ENV === "development") {
+        url = "/api/random/anime";
+      }
+      const response = await fetch(url);
       const animeData = await response.json();
       setRandomList(animeData);
     } catch (error) {
@@ -88,11 +91,11 @@ const CollageContextProvider = (props) => {
     try {
       // Number of data objects needed
       const numberOfItems = rows * cols;
-      console.log(numberOfItems);
-      const response = await fetch(
-        // `http://localhost:5000/api/random/movies?items=${numberOfItems}`
-        `https://ccharts.herokuapp.com/api/random/movies?items=${numberOfItems}`
-      );
+      let url = `https://mediacharts.onrender.com/api/random/movies?items=${numberOfItems}`;
+      if (process.env.REACT_APP_ENV === "development") {
+        url = `/api/random/movies?items=${numberOfItems}`;
+      }
+      const response = await fetch(url);
       const movieData = await response.json();
       console.log(movieData);
       setRandomList(movieData);
@@ -105,10 +108,11 @@ const CollageContextProvider = (props) => {
     try {
       // Function that fetches random TV show data and creates a collage
       const numberOfItems = rows * cols;
-      const response = await fetch(
-        // `http://localhost:5000/api/random/tv?q=${numberOfItems}`
-        `https://ccharts.herokuapp.com/api/random/tv?items=${numberOfItems}`
-      );
+      let url = `https://mediacharts.onrender.com/api/random/tv?items=${numberOfItems}`;
+      if (process.env.REACT_APP_ENV === "development") {
+        url = `/api/random/tv?items=${numberOfItems}`;
+      }
+      const response = await fetch(url);
       const tvData = await response.json();
       setRandomList(tvData);
     } catch (error) {
@@ -121,10 +125,11 @@ const CollageContextProvider = (props) => {
       // Function that fetches random videogame data and creates a collage
       // Number of objects needed
       const numberOfItems = rows * cols;
-      const response = await fetch(
-        // `http://localhost:5000/api/random/games?items=${numberOfItems}`
-        `https://ccharts.herokuapp.com/api/random/games?items=${numberOfItems}`
-      );
+      let url = `https://mediacharts.onrender.com/api/random/games?items=${numberOfItems}`;
+      if (process.env.REACT_APP_ENV === "development") {
+        url = `/api/random/games?items=${numberOfItems}`;
+      }
+      const response = await fetch(url);
       const gameData = await response.json();
       setRandomList(gameData);
     } catch (error) {

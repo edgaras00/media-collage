@@ -60,17 +60,17 @@ const Box = ({
   // So that the grids fits the screen size
   let dims;
   if (numCols <= 5) {
-    dims = 160;
+    dims = 150;
   } else if (numCols === 6) {
-    dims = 140;
+    dims = 134;
   } else if (numCols === 7) {
-    dims = 130;
+    dims = 113;
   } else if (numCols === 8) {
-    dims = 110;
+    dims = 99;
   } else if (numCols === 9) {
-    dims = 100;
+    dims = 87;
   } else if (numCols === 10) {
-    dims = 90;
+    dims = 78;
   }
 
   // Box style

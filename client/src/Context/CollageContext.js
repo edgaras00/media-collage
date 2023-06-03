@@ -60,7 +60,7 @@ const CollageContextProvider = (props) => {
   const generateRandomCollage = async (rows, cols) => {
     // Function that generates a random music artwork collage
     const numItems = rows * cols;
-    let url = `https://mediacharts.onrender.com/api/random/music?items=${numItems}`;
+    let url = `https://mediacharts-api.onrender.com/api/random/music?items=${numItems}`;
     if (process.env.REACT_APP_ENV === "development") {
       url = `api/random/music?items=${numItems}`;
     }

@@ -29,7 +29,7 @@ const SearchMedia = ({ setBoxes }) => {
 
   // Build a different query for a different search mode
   let query;
-  let baseUrl = "https://mediacharts.onrender.com";
+  let baseUrl = "https://mediacharts-api.onrender.com";
   if (process.env.REACT_APP_ENV === "development") {
     baseUrl = "";
   }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import fetch from "node-fetch";
 // React Context that holds the app states that are accessible to multiple
 // components in the app
 
@@ -74,7 +73,7 @@ const CollageContextProvider = (props) => {
     // Function to fetch random anime data
 
     try {
-      let url = "https://mediacharts.onrender.com/api/random/anime";
+      let url = "https://mediacharts-api.onrender.com/api/random/anime";
       if (process.env.REACT_APP_ENV === "development") {
         url = "/api/random/anime";
       }
@@ -91,7 +90,7 @@ const CollageContextProvider = (props) => {
     try {
       // Number of data objects needed
       const numberOfItems = rows * cols;
-      let url = `https://mediacharts.onrender.com/api/random/movies?items=${numberOfItems}`;
+      let url = `https://mediacharts-api.onrender.com/api/random/movies?items=${numberOfItems}`;
       if (process.env.REACT_APP_ENV === "development") {
         url = `/api/random/movies?items=${numberOfItems}`;
       }
@@ -108,7 +107,7 @@ const CollageContextProvider = (props) => {
     try {
       // Function that fetches random TV show data and creates a collage
       const numberOfItems = rows * cols;
-      let url = `https://mediacharts.onrender.com/api/random/tv?items=${numberOfItems}`;
+      let url = `https://mediacharts-api.onrender.com/api/random/tv?items=${numberOfItems}`;
       if (process.env.REACT_APP_ENV === "development") {
         url = `/api/random/tv?items=${numberOfItems}`;
       }
@@ -125,7 +124,7 @@ const CollageContextProvider = (props) => {
       // Function that fetches random videogame data and creates a collage
       // Number of objects needed
       const numberOfItems = rows * cols;
-      let url = `https://mediacharts.onrender.com/api/random/games?items=${numberOfItems}`;
+      let url = `https://mediacharts-api.onrender.com/api/random/games?items=${numberOfItems}`;
       if (process.env.REACT_APP_ENV === "development") {
         url = `/api/random/games?items=${numberOfItems}`;
       }

@@ -73,12 +73,12 @@ exports.getAnimeData = async (req, res) => {
     }
     const animeData = await response.json();
 
-    const filteredAnimeData = animeData.data.map((anime) => ({
+    const animeObjects = animeData.data.map((anime) => ({
       title: anime.title,
       image_url: anime.images.jpg.image_url,
     }));
 
-    res.status(200).json(filteredAnimeData);
+    res.status(200).json(animeObjects);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
@@ -211,29 +211,17 @@ exports.getRandomAnimeData = async (req, res) => {
     const randomPage = animePage[Math.floor(Math.random() * animePage.length)];
 
     const animeType = utils.getRandomAnimeType();
-    const animeGenre = utils.getRandomAnimeGenre();
 
     // Anime query by anime type | Returns top movies/shows
-    const typeAnimeQuery = `https://api.jikan.moe/v3/top/anime/${randomPage}/${animeType}`;
-    // Anime query by genre | Returns by genres
-    const genreAnimeQuery = `https://api.jikan.moe/v3/genre/anime/${animeGenre}`;
-    // Randomly choose which query to use
-    const randomChoice = Math.random();
+    const animeQuery = `https://api.jikan.moe/v4/top/anime?page=${randomPage}&type=${animeType}&sfw`;
 
-    // Which API query
-    let queryUrl = typeAnimeQuery;
-    if (randomChoice < 0.5) {
-      queryUrl = genreAnimeQuery;
-    }
+    const response = await fetch(animeQuery);
+    const animeData = await response.json();
 
-    const response = await fetch(queryUrl);
-    const data = await response.json();
-
-    const animeData = randomChoice >= 0.5 ? data.top : data.anime;
-    const animeObjects = animeData.map((item) => {
+    const animeObjects = animeData.data.map((anime) => {
       return {
-        image: item.image_url,
-        data: item.title,
+        image: anime.images.jpg.image_url,
+        data: anime.title,
       };
     });
     res.status(200).json(animeObjects);

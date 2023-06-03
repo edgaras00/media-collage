@@ -73,245 +73,256 @@ const Options = () => {
     <div className="options-container">
       <div className="options">
         {/* Number of rows slider */}
-        <label>
-          Rows:
-          <input
-            type="range"
-            min="1"
-            max="10"
-            step="1"
-            name="numRows"
-            value={numRows}
-            onChange={(event) => setNumRows(event.target.value * 1)}
-          />{" "}
-          {numRows}
-        </label>
-        <br />
-        <br />
-        {/* Number of columns slider */}
-        <label>
-          Columns:
-          <input
-            type="range"
-            min="1"
-            max="10"
-            step="1"
-            value={numCols}
-            onChange={(event) => setNumCols(event.target.value * 1)}
-          />
-          {numCols}
-        </label>
-        <br />
-        <br />
-        {/* Margin slider (number of pixels) */}
-        <label>
-          Margin (pixels):
-          <input
-            type="range"
-            name="boxMargin"
-            min="0"
-            max="15"
-            step="1"
-            value={boxMargin}
-            onChange={(event) => setBoxMargin(Number(event.target.value))}
-          />
-          {boxMargin}
-        </label>
-        <br />
-        <br />
-        <label>
-          {/* Border radius slider */}
-          Border Radius:
-          <input
-            type="range"
-            name="borderRadius"
-            min="0"
-            max="50"
-            step="1"
-            value={borderRadius}
-            onChange={(event) => setBorderRadius(event.target.value * 1)}
-          />
-        </label>
-        <br />
-        <br />
-        {/* Radio button to select grid cell's shape (square) */}
-        <label>
-          <input
-            type="radio"
-            name="boxType"
-            value="square"
-            checked={boxType === "square"}
-            onChange={(event) => setBoxType(event.target.value)}
-          />
-          Square
-        </label>
-        <br />
-        {/* Radio button for grid cell's shape (rectangle) */}
-        <label>
-          <input
-            type="radio"
-            name="boxType"
-            value="rectangle"
-            checked={boxType === "rectangle"}
-            onChange={(event) => setBoxType(event.target.value)}
-          />
-          Rectangle
-        </label>
-        <br />
-        <br />
-        {/* Select input for search mode. What kind of media to look for. */}
-        <select
-          name="searchMode"
-          onChange={(event) => setSearchMode(event.target.value)}
-        >
-          <option value="music">Music</option>
-          <option value="movies">Movies</option>
-          <option value="tv">TV Shows</option>
-          <option value="anime">Anime</option>
-          <option value="videogames">Video Games</option>
-        </select>
-        <br />
-        <br />
-        {/* Radio button for regular background color */}
-        <label>
-          <input
-            type="radio"
-            name="backgroundMode"
-            value="regular"
-            checked={backgroundMode === "regular"}
-            onChange={(event) => setBackgroundMode(event.target.value)}
-          />
-          Regular
-        </label>
-        <br />
-        {/* Radio button for gradient background color */}
-        <label>
-          <input
-            type="radio"
-            name="backgroundMode"
-            value="gradient"
-            checked={backgroundMode === "gradient"}
-            onChange={(event) => setBackgroundMode(event.target.value)}
-          />
-          Gradient
-        </label>
-        <br />
-        <br />
-        {/* Color options based on selected color mode */}
-        {backgroundMode === "regular" ? (
+        <div className="option">
           <label>
-            <span>Background Color: </span>
+            Rows:
             <input
-              type="text"
-              name="color"
-              value={color}
-              onChange={(event) => setColor(event.target.value)}
+              type="range"
+              min="1"
+              max="10"
+              step="1"
+              name="numRows"
+              value={numRows}
+              onChange={(event) => setNumRows(event.target.value * 1)}
+            />{" "}
+            {numRows}
+          </label>
+        </div>
+        {/* Number of columns slider */}
+        <div className="option">
+          <label>
+            Columns:
+            <input
+              type="range"
+              min="1"
+              max="10"
+              step="1"
+              value={numCols}
+              onChange={(event) => setNumCols(event.target.value * 1)}
+            />
+            {numCols}
+          </label>
+        </div>
+        {/* Margin slider (number of pixels) */}
+        <div className="option">
+          <label>
+            Margin (pixels):
+            <input
+              className="option-input"
+              type="range"
+              name="boxMargin"
+              min="0"
+              max="15"
+              step="1"
+              value={boxMargin}
+              onChange={(event) => setBoxMargin(Number(event.target.value))}
+            />
+            {boxMargin}
+          </label>
+        </div>
+        {/* Border radius slider */}
+        <div className="option">
+          <label>
+            Border Radius:
+            <input
+              className="option-input"
+              type="range"
+              name="borderRadius"
+              min="0"
+              max="50"
+              step="1"
+              value={borderRadius}
+              onChange={(event) => setBorderRadius(event.target.value * 1)}
             />
           </label>
-        ) : (
-          <div>
+        </div>
+        {/* Radio button to select grid cell's shape (square) */}
+        <div className="related-option">
+          <label>
+            <input
+              type="radio"
+              name="boxType"
+              value="square"
+              checked={boxType === "square"}
+              onChange={(event) => setBoxType(event.target.value)}
+            />
+            Square
+          </label>
+        </div>
+        {/* Radio button for grid cell's shape (rectangle) */}
+        <div className="option">
+          <label>
+            <input
+              type="radio"
+              name="boxType"
+              value="rectangle"
+              checked={boxType === "rectangle"}
+              onChange={(event) => setBoxType(event.target.value)}
+            />
+            Rectangle
+          </label>
+        </div>
+        {/* Select input for search mode. What kind of media to look for. */}
+        <div className="option">
+          <select
+            name="searchMode"
+            onChange={(event) => setSearchMode(event.target.value)}
+            className="option"
+          >
+            <option value="music">Music</option>
+            <option value="movies">Movies</option>
+            <option value="tv">TV Shows</option>
+            <option value="anime">Anime</option>
+            <option value="videogames">Video Games</option>
+          </select>
+        </div>
+        {/* Radio button for regular background color */}
+        <div className="related-option">
+          <label>
+            <input
+              type="radio"
+              name="backgroundMode"
+              value="regular"
+              checked={backgroundMode === "regular"}
+              onChange={(event) => setBackgroundMode(event.target.value)}
+            />
+            Regular
+          </label>
+        </div>
+        {/* Radio button for gradient background color */}
+        <div className="option">
+          <label className="option">
+            <input
+              type="radio"
+              name="backgroundMode"
+              value="gradient"
+              checked={backgroundMode === "gradient"}
+              onChange={(event) => setBackgroundMode(event.target.value)}
+            />
+            Gradient
+          </label>
+        </div>
+        {/* Color options based on selected color mode */}
+        <div className="option">
+          {backgroundMode === "regular" ? (
             <label>
-              <span>Linear Gradient: </span>
-              <div>
-                <input
-                  type="text"
-                  name="colorOne"
-                  value={firstGradientColor}
-                  onChange={(event) =>
-                    setFirstGradientColor(event.target.value)
-                  }
-                />
-                <input
-                  type="text"
-                  name="colorTwo"
-                  value={secondGradientColor}
-                  onChange={(event) =>
-                    setSecondGradientColor(event.target.value)
-                  }
-                />
-              </div>
-            </label>
-            <label>
-              Angle:
+              <span>Background Color: </span>
               <input
-                type="range"
-                min="0"
-                max="100"
-                value={gradientAngle}
-                onChange={(event) => setGradientAngle(event.target.value * 1)}
+                className="option-input"
+                type="text"
+                name="color"
+                value={color}
+                onChange={(event) => setColor(event.target.value)}
               />
             </label>
-          </div>
-        )}
-        <br />
-        <br />
+          ) : (
+            <div>
+              <div className="related-option">
+                <label>
+                  <span>Linear Gradient: </span>
+                  <div>
+                    <input
+                      className="gradient-color"
+                      type="text"
+                      name="colorOne"
+                      value={firstGradientColor}
+                      onChange={(event) =>
+                        setFirstGradientColor(event.target.value)
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="colorTwo"
+                      value={secondGradientColor}
+                      onChange={(event) =>
+                        setSecondGradientColor(event.target.value)
+                      }
+                    />
+                  </div>
+                </label>
+              </div>
+              <label>
+                Angle:
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={gradientAngle}
+                  onChange={(event) => setGradientAngle(event.target.value * 1)}
+                />
+              </label>
+            </div>
+          )}
+        </div>
         {/* Select font family*/}
-        <label>
-          <span>Font: </span>
-          <select
-            value={fontFamily}
-            onChange={(event) => setFontFamily(event.target.value)}
-          >
-            <option value="Courier">Courier</option>
-            <option value="Helvetica">Helvetica</option>
-            <option value="Verdana">Verdana</option>
-            <option value="Roboto">Roboto</option>
-          </select>
-        </label>
-        <br />
+        <div className="option">
+          <label>
+            <span>Font: </span>
+            <select
+              value={fontFamily}
+              onChange={(event) => setFontFamily(event.target.value)}
+            >
+              <option value="Courier">Courier</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Roboto">Roboto</option>
+            </select>
+          </label>
+        </div>
         {/* Select font color */}
-        <label>
-          <span>Font Color: </span>
-          <input
-            type="text"
-            name="fontColor"
-            value={fontColor}
-            onChange={(event) => setFontColor(event.target.value)}
-          />
-        </label>
-        <br />
-        <br />
+        <div className="option">
+          <label>
+            <span>Font Color: </span>
+            <input
+              className="option-input"
+              type="text"
+              name="fontColor"
+              value={fontColor}
+              onChange={(event) => setFontColor(event.target.value)}
+            />
+          </label>
+        </div>
         {/* Radio button for drag and sort option */}
         {/* Pushes neighboring cells to the side */}
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            value={sort}
-            checked={sort}
-            onChange={() => setSort(true)}
-          />
-          Drag and Sort
-        </label>
-        <br />
+        <div className="related-option">
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              value={sort}
+              checked={sort}
+              onChange={() => setSort(true)}
+            />
+            Drag and Sort
+          </label>
+        </div>
         {/* Radio button for drag and swap option */}
         {/* Swaps grid cell positions */}
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            value={sort}
-            checked={!sort}
-            onChange={() => setSort(false)}
-          />
-          Drag and Swap
-        </label>
-        <br />
-        <br />
+        <div className="option">
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              value={sort}
+              checked={!sort}
+              onChange={() => setSort(false)}
+            />
+            Drag and Swap
+          </label>
+        </div>
         {/* Checkbox to show or hide titles */}
-        <label>
-          <input
-            type="checkbox"
-            name="displayTitle"
-            value={displayTitle}
-            checked={displayTitle}
-            onChange={() => setDisplayTitles((prev) => !prev)}
-          />
-          Show Titles
-        </label>
-        <br />
-        <br />
-        <br />
+        <div className="option">
+          <label>
+            <input
+              type="checkbox"
+              name="displayTitle"
+              value={displayTitle}
+              checked={displayTitle}
+              onChange={() => setDisplayTitles((prev) => !prev)}
+            />
+            Show Titles
+          </label>
+        </div>
         {/* Button that generates a random media collage */}
         <button
           onClick={() => generateRandom(numRows, numCols)}
@@ -319,8 +330,6 @@ const Options = () => {
         >
           Generate Random
         </button>
-        <br />
-        <br />
         {/* Button that shuffles the images */}
         <button
           onClick={() => setShuffled((prev) => prev + 1)}
@@ -328,8 +337,6 @@ const Options = () => {
         >
           Shuffle Images
         </button>
-        <br />
-        <br />
         {/* Button that clears the collage */}
         <button
           onClick={() => setClear((prev) => !prev)}

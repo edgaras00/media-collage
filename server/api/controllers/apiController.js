@@ -176,15 +176,14 @@ exports.getRandomTVData = async (req, res) => {
     const tvGenreIds = [16, 35, 80, 18, 9648, 53];
     const randomGenreId =
       tvGenreIds[Math.floor(Math.random() * tvGenreIds.length)];
+    console.log(randomGenreId);
     const tvQuery =
       `https://api.themoviedb.org/3/discover/tv?api_key=${MOVIE_API}` +
       `&language=en-US&sort_by=popularity.desc&page=1` +
       `&timezone=America%2FNew_York&with_genres=${randomGenreId}` +
       `&include_null_first_air_dates=false`;
-    console.log(tvQuery);
     const response = await fetch(tvQuery);
     const data = await response.json();
-    console.log(data);
     let tvData = data.results.map((item) => {
       return {
         image: `https://image.tmdb.org/t/p/w300${item.poster_path}`,

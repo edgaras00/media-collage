@@ -1,5 +1,5 @@
 # Media Charts
-https://ccharts.herokuapp.com/
+https://mediacharts.onrender.com
 <br/>
 <br/>
 <img src="docs/main2.png" width="800px">

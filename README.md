@@ -3,6 +3,7 @@ https://mediacharts.onrender.com
 <br/>
 <br/>
 <img src="docs/main2.png" width="800px">
+<br/>
 Front end application that allows its users to create customizable charts.
 <br/>
 <br/>

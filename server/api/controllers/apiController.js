@@ -181,6 +181,7 @@ exports.getRandomTVData = async (req, res) => {
       `&language=en-US&sort_by=popularity.desc&page=1` +
       `&timezone=America%2FNew_York&with_genres=${randomGenreId}` +
       `&include_null_first_air_dates=false`;
+    console.log(tvQuery);
     const response = await fetch(tvQuery);
     const data = await response.json();
     console.log(data);

@@ -138,7 +138,7 @@ exports.getRandomMovieData = async (req, res) => {
   try {
     const numberOfItems = req.query.items;
     const moviePages = [1, 2, 3];
-    const releaseYears = Array.from(new Array(33), (x, i) => i + 1990);
+    const releaseYears = Array.from(new Array(34), (x, i) => i + 1990);
     const randomPage =
       moviePages[Math.floor(Math.random() * moviePages.length)];
     const randomYear =
@@ -183,6 +183,7 @@ exports.getRandomTVData = async (req, res) => {
       `&include_null_first_air_dates=false`;
     const response = await fetch(tvQuery);
     const data = await response.json();
+    console.log(data);
     let tvData = data.results.map((item) => {
       return {
         image: `https://image.tmdb.org/t/p/w300${item.poster_path}`,

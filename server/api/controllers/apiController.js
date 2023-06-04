@@ -173,10 +173,9 @@ exports.getRandomMovieData = async (req, res) => {
 exports.getRandomTVData = async (req, res) => {
   try {
     const numberOfItems = req.query.items;
-    const tvGenreIds = [16, 35, 80, 18, 9648, 53];
+    const tvGenreIds = [16, 35, 80, 18, 9648];
     const randomGenreId =
       tvGenreIds[Math.floor(Math.random() * tvGenreIds.length)];
-    console.log(randomGenreId);
     const tvQuery =
       `https://api.themoviedb.org/3/discover/tv?api_key=${MOVIE_API}` +
       `&language=en-US&sort_by=popularity.desc&page=1` +

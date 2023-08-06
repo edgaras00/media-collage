@@ -47,3 +47,13 @@
 .option-input {
   margin-top: 10px;
 }
+
+@-moz-document url-prefix() {
+  input[type="range"] {
+    margin-right: 0.7rem;
+  }
+}
+
+input[type="range"]::-moz-range-progress {
+  background-color: #3498db;
+}

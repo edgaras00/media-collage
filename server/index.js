@@ -8,7 +8,7 @@ const apiRouter = require("./api/routes/apiRoutes");
 const app = express();
 app.use(cors());
 app.use("/api", apiRouter);
-app.use("/ping", (req, res) => res.status(200));
+app.use("/ping", (req, res) => res.status(200).send("Welcome"));
 
 // app.use(express.static(path.join(__dirname, "./client/build")));
 

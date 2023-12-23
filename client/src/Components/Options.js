@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CollageContext } from "../Context/CollageContext";
 import "../styles/options.css";
 
@@ -323,27 +323,29 @@ const Options = () => {
             Show Titles
           </label>
         </div>
-        {/* Button that generates a random media collage */}
-        <button
-          onClick={() => generateRandom(numRows, numCols)}
-          className="menu-button"
-        >
-          Generate Random
-        </button>
-        {/* Button that shuffles the images */}
-        <button
-          onClick={() => setShuffled((prev) => prev + 1)}
-          className="menu-button"
-        >
-          Shuffle Images
-        </button>
-        {/* Button that clears the collage */}
-        <button
-          onClick={() => setClear((prev) => !prev)}
-          className="menu-button"
-        >
-          Clear Collage
-        </button>
+        <div className="button-wrapper">
+          {/* Button that generates a random media collage */}
+          <button
+            onClick={() => generateRandom(numRows, numCols)}
+            className="menu-button"
+          >
+            Generate Random
+          </button>
+          {/* Button that shuffles the images */}
+          <button
+            onClick={() => setShuffled((prev) => prev + 1)}
+            className="menu-button"
+          >
+            Shuffle Images
+          </button>
+          {/* Button that clears the collage */}
+          <button
+            onClick={() => setClear((prev) => !prev)}
+            className="menu-button"
+          >
+            Clear Collage
+          </button>
+        </div>
       </div>
     </div>
   );

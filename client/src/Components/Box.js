@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 import { useDrop, useDrag } from "react-dnd";
 import ItemTypes from "./ItemTypes";
+
+import useWindowWidth from "../Hooks/useWindowWidth";
+
 import "../styles/box.css";
 
 const Box = ({
@@ -15,6 +18,7 @@ const Box = ({
   borderRadius,
 }) => {
   const ref = useRef(null);
+  const { width } = useWindowWidth();
 
   const [, drop] = useDrop({
     /* 
@@ -60,17 +64,17 @@ const Box = ({
   // So that the grids fits the screen size
   let dims;
   if (numCols <= 5) {
-    dims = 150;
+    dims = width >= 700 ? 150 : 80;
   } else if (numCols === 6) {
-    dims = 134;
+    dims = width >= 700 ? 134 : 68;
   } else if (numCols === 7) {
-    dims = 113;
+    dims = width >= 700 ? 113 : 57;
   } else if (numCols === 8) {
-    dims = 99;
+    dims = width >= 700 ? 99 : 49;
   } else if (numCols === 9) {
-    dims = 87;
+    dims = width >= 700 ? 87 : 39;
   } else if (numCols === 10) {
-    dims = 78;
+    dims = width >= 700 ? 78 : 32;
   }
 
   // Box style
